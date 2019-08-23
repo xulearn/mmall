@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class CookieUtil {
 
-    private final static String COOKIE_DOMAIN = ".happytest.com";   //.happymmall.com   //作用域
+    private final static String COOKIE_DOMAIN = "happytest.com";   //.happymmall.com   //作用域
+                                                                //在8.5之后，是不能加点的，就是将".xxxx.com" 换成"xxx.com"（此为设置一级域名）
     private final static String COOKIE_NAME = "mmall_login_token";
 
 
@@ -29,10 +30,19 @@ public class CookieUtil {
         return null;
     }
 
+    //X:domain=".happymmall.com"
+    //a:A.happymmall.com            cookie:domain=A.happymmall.com;path="/"
+    //b:B.happymmall.com            cookie:domain=B.happymmall.com;path="/"
+    //c:A.happymmall.com/test/cc    cookie:domain=A.happymmall.com;path="/test/cc"
+    //d:A.happymmall.com/test/dd    cookie:domain=A.happymmall.com;path="/test/dd"
+    //e:A.happymmall.com/test       cookie:domain=A.happymmall.com;path="/test"
+
+
     public static void writeLoginToken(HttpServletResponse response, String token){//TOKEN 就是sessionid
         Cookie ck = new Cookie(COOKIE_NAME,token);
         ck.setDomain(COOKIE_DOMAIN);    //设置cookie作用域
         ck.setPath("/");//代表设置在根目录，表示根目录下的页面或者代码才能访问这个cookie
+        ck.setHttpOnly(true);   //不允许脚本访问
 
         ck.setMaxAge(60*60*24*365);//-1表示永久，单位是秒， 不设置setmaxage，cookie就不会写入硬盘，而是写在内存，只在当前页面有效
         log.info("write cookieName:{}, cookieValue:{}",ck.getName(),ck.getValue());
