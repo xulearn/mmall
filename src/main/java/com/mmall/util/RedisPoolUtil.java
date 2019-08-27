@@ -13,7 +13,7 @@ public class RedisPoolUtil {
 
         try {
             jedis = RedisPool.getJedis();
-            result = jedis.expire(key,exTime);
+            result = jedis.expire(key,exTime);//核心代码
         } catch (Exception e) {
             log.error("expire key:{} error",key,e);
             RedisPool.returnBrokenResource(jedis);
@@ -29,7 +29,7 @@ public class RedisPoolUtil {
 
         try {
             jedis = RedisPool.getJedis();
-            result = jedis.setex(key,exTime,value);
+            result = jedis.setex(key,exTime,value);//核心代码
         } catch (Exception e) {
             log.error("setex key:{} value:{} error",key,value,e);
             RedisPool.returnBrokenResource(jedis);
@@ -45,7 +45,7 @@ public class RedisPoolUtil {
 
         try {
             jedis = RedisPool.getJedis();
-            result = jedis.set(key,value);
+            result = jedis.set(key,value);//核心代码
         } catch (Exception e) {
             log.error("set key:{} value:{} error",key,value,e);
             RedisPool.returnBrokenResource(jedis);
@@ -61,7 +61,7 @@ public class RedisPoolUtil {
 
         try {
             jedis = RedisPool.getJedis();
-            result = jedis.get(key);
+            result = jedis.get(key);//核心代码
         } catch (Exception e) {
             log.error("get key:{}  error",key,e);
             RedisPool.returnBrokenResource(jedis);
@@ -77,7 +77,7 @@ public class RedisPoolUtil {
 
         try {
             jedis = RedisPool.getJedis();
-            result = jedis.del(key);
+            result = jedis.del(key);//核心代码
         } catch (Exception e) {
             log.error("get key:{}  error",key,e);
             RedisPool.returnBrokenResource(jedis);
