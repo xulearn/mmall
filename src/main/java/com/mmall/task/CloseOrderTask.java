@@ -111,7 +111,7 @@ public class CloseOrderTask {
                 return ;
             }
             lock.unlock();
-            log.error("Redisson分布式锁释放");
+            log.info("Redisson分布式锁释放");
         }
 
     }
